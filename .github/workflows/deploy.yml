@@ -23,8 +23,8 @@ jobs:
 
     - name: Construir imagen y subir a Docker Hub
       run: |
-        docker build -t arieling/ms-user-profile .
-        docker push arieling/ms-user-profile
+        docker build -t arieling/ms-password-recovery .
+        docker push arieling/ms-password-recovery
 
     - name: Acceder a EC2 y desplegar contenedor
       uses: appleboy/ssh-action@v1.0.3
@@ -34,7 +34,7 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
           echo "${{ secrets.ENV_FILE }}" > .env
-          docker pull arieling/ms-user-profile
-          docker stop ms-user-profile || true
-          docker rm ms-user-profile || true
-          docker run -d --name ms-user-profile -p 3002:3002 --env-file .env arieling/ms-user-profile
+          docker pull arieling/ms-password-recovery
+          docker stop ms-password-recovery || true
+          docker rm ms-password-recovery || true
+          docker run -d --name ms-password-recovery -p 3004:3004 --env-file .env arieling/ms-password-recovery
