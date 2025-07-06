@@ -18,7 +18,7 @@ const publish = async (event, data) => {
     await connectRabbitMQ();
   }
 
-  const exchange = 'events'; // nombre del exchange común
+  const exchange = 'events'; 
   const msg = JSON.stringify({ event, data, timestamp: new Date() });
 
   await channel.assertExchange(exchange, 'fanout', { durable: false });
