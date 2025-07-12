@@ -20,7 +20,7 @@ const resetPasswordWithToken = async (token, newPassword) => {
     // Encriptar nueva contraseña
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    // Llamar a otro microservicio (por ejemplo: ms-user-profile) para actualizar contraseña
+    // Llamar a otro microservicio para actualizar contraseña
     await axios.put(`${process.env.USER_SERVICE_URL}/update-password`, {
       email: tokenDoc.email,
       newPassword
