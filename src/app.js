@@ -5,7 +5,7 @@ const recoveryRoutes = require('./routes/recoveryRoutes');
 const connectDB = require('./config/db');
 
 const app = express();
-const PORT = process.env.PORT || 3004; // ✅ Declarar el puerto
+const PORT = process.env.PORT || 3004; 
 
 // Conectar a la base de datos
 connectDB();
