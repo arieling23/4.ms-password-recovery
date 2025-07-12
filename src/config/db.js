@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI); // ✅ sin opciones innecesarias
+    await mongoose.connect(process.env.MONGO_URI); 
     console.log('📦 Conectado a la base de datos de recuperación de contraseñas');
   } catch (err) {
     console.error('❌ Error al conectar a MongoDB:', err);
