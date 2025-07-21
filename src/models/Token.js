@@ -15,7 +15,7 @@ const tokenSchema = new mongoose.Schema({
     required: true
   }
 }, {
-  timestamps: true // Crea automáticamente createdAt y updatedAt
+  timestamps: true 
 });
 
 module.exports = mongoose.model('Token', tokenSchema);

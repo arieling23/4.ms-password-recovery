@@ -3,7 +3,7 @@ const generateRecoveryToken = require('../utils/generateToken');
 const recoveryService = require('../services/recoveryService');
 const publisher = require('../events/publisher');
 
-// Solicitud de recuperación de contraseña
+
 const requestRecoveryToken = async (req, res) => {
   const { email } = req.body;
 
@@ -17,16 +17,16 @@ if (!emailRegex.test(email)) {
 }
 
   try {
-    // Generar token
+    
     const { token, expiresAt } = generateRecoveryToken();
-    // Eliminar tokens anteriores del mismo usuario
+   
     await Token.deleteMany({ email });
 
 
-    // Guardar token en la base de datos
+  
     await Token.create({ email, token, expiresAt });
 
-    // Publicar evento para enviar correo (a ms-notifications)
+    
     await publisher.publish('password.recovery.requested', { email, token });
 
     res.status(200).json({ message: 'Token de recuperación generado y enviado' });
@@ -36,7 +36,7 @@ if (!emailRegex.test(email)) {
   }
 };
 
-// Resetear la contraseña con el token
+
 const resetPassword = async (req, res) => {
   const { token, newPassword } = req.body;
 
@@ -45,14 +45,14 @@ const resetPassword = async (req, res) => {
   }
 
   try {
-    // Validar token y cambiar contraseña
+    
     const result = await recoveryService.resetPasswordWithToken(token, newPassword);
 
     if (!result.success) {
       return res.status(400).json({ error: result.message });
     }
 
-    // Publicar evento de contraseña restablecida
+    
     await publisher.publish('password.recovery.completed', { email: result.email });
 
     res.status(200).json({ message: 'Contraseña actualizada exitosamente' });

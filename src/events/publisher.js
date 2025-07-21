@@ -12,7 +12,7 @@ const connectRabbitMQ = async () => {
   }
 };
 
-// Publicar evento
+
 const publish = async (event, data) => {
   if (!channel) {
     await connectRabbitMQ();
